@@ -1,7 +1,7 @@
 {
     "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.26/MicrosoftTeams.schema.json",
     "manifestVersion": "1.26",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "id": "${{TEAMS_APP_ID}}",
     "developer": {
         "name": "My App, Inc.",
@@ -14,12 +14,12 @@
         "outline": "outline.png"
     },
     "name": {
-        "short": "Mazik Onboarding Agent",
-        "full": "full name for SampleWeatherAgent"
+        "short": "Onboarding Agent",
+        "full": "Mazik Employee Onboarding Agent"
     },
     "description": {
-        "short": "short description for SampleWeatherAgent",
-        "full": "full description for SampleWeatherAgent"
+        "short": "Mazik Onboarding Agent is your AI-powered assistant for a smooth start at Mazik Global. Get instant access to your onboarding checklist, company policies, and key contacts — all within Microsoft Teams.",
+        "full": "Mazik Onboarding Agent is a conversational AI assistant built using the Microsoft 365 Agents SDK. Deployed on Microsoft Teams, it guides new Mazik Global employees through their pre-onboarding and Day 1 experience — providing instant access to checklists, policies, schedules, and key contacts through a simple chat interface."
     },
     "accentColor": "#FFFFFF",
     "supportsChannelFeatures": "tier1",
