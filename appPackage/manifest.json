@@ -14,7 +14,7 @@
         "outline": "outline.png"
     },
     "name": {
-        "short": "SampleWeatherAgent${{APP_NAME_SUFFIX}}",
+        "short": "Mazik Onboarding Agent",
         "full": "full name for SampleWeatherAgent"
     },
     "description": {

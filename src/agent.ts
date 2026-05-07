@@ -10,9 +10,167 @@ export const onboardingAgent = new AgentApplicationBuilder().build();
 onboardingAgent.onConversationUpdate(
   "membersAdded",
   async (context: TurnContext) => {
-    await context.sendActivity(
-      "Hello and welcome! I can guide you through a quick employee onboarding process."
-    );
+    await sendCard(context, {
+      type: "AdaptiveCard",
+      version: "1.5",
+      $schema: "http://adaptivecards.io/schemas/adaptive-card.json",
+      body: [
+        {
+          type: "Container",
+          style: "emphasis",
+          bleed: true,
+          items: [
+            {
+              type: "TextBlock",
+              text: "👋 Welcome to Mazik Global",
+              weight: "Bolder",
+              size: "Large",
+              wrap: true,
+            },
+            {
+              type: "TextBlock",
+              text: "We're excited to have you with us. Let's help you get started with a smooth onboarding experience.",
+              wrap: true,
+              spacing: "Small",
+            },
+          ],
+        },
+        {
+          type: "TextBlock",
+          text: "About Mazik Global",
+          weight: "Bolder",
+          size: "Medium",
+          spacing: "Medium",
+        },
+        {
+          type: "TextBlock",
+          text: "Mazik Global is a people-first technology consulting company focused on delivering enterprise innovation and measurable business outcomes.",
+          wrap: true,
+          isSubtle: true,
+          spacing: "Small",
+        },
+        {
+          type: "FactSet",
+          spacing: "Medium",
+          facts: [
+            {
+              title: "Company",
+              value: "Mazik Global",
+            },
+            {
+              title: "Core Values",
+              value: "Innovation, Collaboration, Excellence",
+            },
+            {
+              title: "Your First Step",
+              value: "Complete your onboarding profile",
+            },
+          ],
+        },
+        {
+          type: "TextBlock",
+          text: "Who to Contact",
+          weight: "Bolder",
+          size: "Medium",
+          spacing: "Large",
+        },
+        {
+          type: "Container",
+          style: "default",
+          spacing: "Small",
+          items: [
+            {
+              type: "TextBlock",
+              text: "Leadership & Strategic Management",
+              weight: "Bolder",
+              wrap: true,
+            },
+            {
+              type: "TextBlock",
+              text: "• Faima Noor (Chief of Staff): Strategic HR operations and high-level internal coordination across Pakistan\n• Afzal Syed (Partner): Strategic partnership and business oversight\n• Muhammad Khan (Senior Finance Manager): Financial operations and administrative matters\n• Waqas Anwer (Director, Technical Services - FinOps): Technical delivery and financial operations management",
+              wrap: true,
+              spacing: "Small",
+              isSubtle: true,
+            },
+          ],
+        },
+        {
+          type: "Container",
+          style: "default",
+          spacing: "Medium",
+          items: [
+            {
+              type: "TextBlock",
+              text: "HR, Recruitment & Careers",
+              weight: "Bolder",
+              wrap: true,
+            },
+            {
+              type: "TextBlock",
+              text: "• Saba Umer (HR Manager): Primary contact for HR and talent management in Karachi\n• Mansoor Hussain Laghari (HR Executive | Talent Acquisition): Recruitment, hiring, and employee onboarding",
+              wrap: true,
+              spacing: "Small",
+              isSubtle: true,
+            },
+          ],
+        },
+        {
+          type: "Container",
+          style: "default",
+          spacing: "Medium",
+          items: [
+            {
+              type: "TextBlock",
+              text: "Technical Delivery & Solutions",
+              weight: "Bolder",
+              wrap: true,
+            },
+            {
+              type: "TextBlock",
+              text: "• Huzaifa Jalali (Managing Consultant): Leads consulting teams for complex enterprise solutions\n• Munam Ahmed (D365 Service Delivery Coordinator): Coordinates Dynamics 365 delivery and support\n• Haseeb Ahmed (Senior Solutions Engineer): Engineers technical solutions for client business needs\n• Munib Qazi (Technical Team Lead): Senior software engineer leading development teams",
+              wrap: true,
+              spacing: "Small",
+              isSubtle: true,
+            },
+          ],
+        },
+        {
+          type: "Container",
+          style: "default",
+          spacing: "Medium",
+          items: [
+            {
+              type: "TextBlock",
+              text: "Innovation & Specialist Teams",
+              weight: "Bolder",
+              wrap: true,
+            },
+            {
+              type: "TextBlock",
+              text: "• Team Mazikians: Specialists representing Mazik Global at tech summits (Shayan Zubair, Safa Rizwan, Hafsa Farooqui, Shehzed Akmal)\n• Anas Uddin: Technical specialist in Azure and Dynamics 365 CRM",
+              wrap: true,
+              spacing: "Small",
+              isSubtle: true,
+            },
+          ],
+        },
+      ],
+      actions: [
+        {
+          type: "Action.Submit",
+          title: "Start Onboarding",
+          style: "positive",
+          data: {
+            action: "startOnboarding",
+          },
+        },
+        {
+          type: "Action.OpenUrl",
+          title: "Employee Handbook",
+          url: "https://mazikglobalinc.sharepoint.com/:b:/s/MazikGlobal-KarachiOffice2/IQAad2IxqJZnR7VkGwEntvEuAUK6Bw7C5VfvfCjfLfYgess?e=rlpCgb",
+        },
+      ],
+    });
   }
 );
 
@@ -156,6 +314,12 @@ function createSummaryCard(session: OnboardingSession) {
         size: "Medium",
       },
       {
+        type: "TextBlock",
+        text: "Your onboarding process is completed. This information will be sent to HR right away for final processing.",
+        wrap: true,
+        spacing: "Small",
+      },
+      {
         type: "FactSet",
         facts: [
           { title: "Name", value: session.fullName ?? "-" },
@@ -210,6 +374,53 @@ function createSummaryCard(session: OnboardingSession) {
         ],
       },
     ],
+    actions: [
+      {
+        type: "Action.Submit",
+        title: "Accept & Submit",
+        style: "positive",
+        data: {
+          action: "acceptOnboarding",
+        },
+      },
+      {
+        type: "Action.Submit",
+        title: "Start Onboarding Again",
+        data: {
+          action: "restartOnboarding",
+        },
+      },
+    ],
+  };
+}
+
+function createThankYouCard() {
+  return {
+    type: "AdaptiveCard",
+    version: "1.5",
+    $schema: "http://adaptivecards.io/schemas/adaptive-card.json",
+    body: [
+      {
+        type: "TextBlock",
+        text: "Thank You! 🎉",
+        weight: "Bolder",
+        size: "Large",
+        wrap: true,
+      },
+      {
+        type: "TextBlock",
+        text: "Your information has been confirmed and submitted successfully.",
+        wrap: true,
+        spacing: "Small",
+      },
+      {
+        type: "TextBlock",
+        text: "Congratulations on joining Mazik Global. We wish you great success and an amazing journey ahead!",
+        wrap: true,
+        spacing: "Small",
+        isSubtle: true,
+      },
+    ],
   };
 }
 
@@ -232,6 +443,7 @@ onboardingAgent.onActivity(ActivityTypes.Message, async (context) => {
     const session = getSession(conversationId);
     const submittedData = (context.activity.value ?? {}) as Record<string, string>;
     const text = (context.activity.text ?? "").trim();
+    const action = submittedData.action;
 
     const answer = (key: string) => submittedData[key] ?? text;
 
@@ -246,6 +458,28 @@ onboardingAgent.onActivity(ActivityTypes.Message, async (context) => {
         )
       );
       session.step = "fullName";
+      return;
+    }
+
+    if (action === "acceptOnboarding") {
+      await sendCard(context, createThankYouCard());
+      return;
+    }
+
+    if (action === "restartOnboarding") {
+      onboardingSessions.set(conversationId, { step: "start" });
+      await context.sendActivity("Onboarding restarted.");
+      await context.sendActivity("Great! Let’s begin onboarding. First question:");
+      await sendCard(
+        context,
+        createQuestionCard(
+          "Step 1 of 20: Employee Full Name",
+          "What is your full name?",
+          "fullName"
+        )
+      );
+      const restartedSession = getSession(conversationId);
+      restartedSession.step = "fullName";
       return;
     }
 
@@ -640,7 +874,6 @@ onboardingAgent.onActivity(ActivityTypes.Message, async (context) => {
       session.step = "complete";
       await context.sendActivity("Thanks! Here is your onboarding summary:");
       await sendCard(context, createSummaryCard(session));
-      await context.sendActivity("If you want to restart onboarding, type: restart");
       return;
     }
 
@@ -650,7 +883,7 @@ onboardingAgent.onActivity(ActivityTypes.Message, async (context) => {
         await context.sendActivity("Onboarding restarted.");
       } else {
         await context.sendActivity(
-          "Onboarding is already complete. Type 'restart' to begin again."
+          "Onboarding is complete. Please use the card buttons to Accept & Submit or Start Onboarding Again."
         );
       }
     }
