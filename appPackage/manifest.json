@@ -18,7 +18,7 @@
         "full": "Mazik Employee Onboarding Agent"
     },
     "description": {
-        "short": "Mazik Onboarding Agent is your AI-powered assistant for a smooth start at Mazik Global. Get instant access to your onboarding checklist, company policies, and key contacts — all within Microsoft Teams.",
+        "short": "AI assistant for Mazik onboarding checklists, policies, and key contacts.",
         "full": "Mazik Onboarding Agent is a conversational AI assistant built using the Microsoft 365 Agents SDK. Deployed on Microsoft Teams, it guides new Mazik Global employees through their pre-onboarding and Day 1 experience — providing instant access to checklists, policies, schedules, and key contacts through a simple chat interface."
     },
     "accentColor": "#FFFFFF",
